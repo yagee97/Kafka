@@ -12,6 +12,7 @@ for e in range(100):
         data = {'student_id': random.randrange(0, 5000),
                 'value': random.randrange(0, 1000)
                 }
+    # for 10 interval, randomly send no data
     else:
         data = {'student_id': random.randrange(0, 5000)
                 }
