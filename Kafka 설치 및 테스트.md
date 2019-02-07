@@ -28,5 +28,17 @@ C:\kafka_2.11-2.1.0\bin\windows>kafka-server-start.bat ../../config/server.prope
 
 
 
+#### 4) Topic 생성
 
+```
+C:\kafka_2.11-2.1.0\bin\windows>kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic [토픽명]
+```
+
+
+
+#### 5) Topic 목록 확인
+
+```
+C:\kafka_2.11-2.1.0\bin\windows>kafka-topics.bat --list --zookeeper localhost:2181
+```
 
