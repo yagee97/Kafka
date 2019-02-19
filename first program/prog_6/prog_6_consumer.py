@@ -3,9 +3,9 @@ from json import loads
 import matplotlib.pyplot as plt
 import statistics
 
-# kafka consumer connect
+# Consumer connection
 consumer = KafkaConsumer(
-    'test6',
+    'kafka_6',
     bootstrap_servers=['localhost:9092'],
     auto_offset_reset='earliest',
     enable_auto_commit=True,
@@ -17,24 +17,37 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 fig.show()
 i = 0
+check = 0
 
-x, y, avg = [], [], []
+x, y, x_, avg = [], [], [], []
 
-# receive data from kafka producer and draw real time graph
+# Data from producer
 for message in consumer:
     message = message.value
-    if len(x) > 9:
+
+    # Range checking
+    if len(x) > 49:
         del (x[0])
         del (y[0])
+    if len(avg) > 49:
+        del (x_[0])
         del (avg[0])
 
     x.append(i)
-    y.append(message['number'])
-    avg.append(statistics.mean(y))
-
+    y.append(message['data'])
     ax.clear()
-    ax.plot(x, avg, color='g')
 
-    ax.set_xlim(left=max(0, i - 10), right=i + 1)
+    check += 1
+    if check > 9:
+        avg.append(statistics.mean(y))
+        x_.append(i)
+        ax.plot(x_, avg, color='g', label="Average")
+
+    ax.plot(x, y, color='r', label="Data per sec")
+
+    ax.set_xlim(left=max(0, i - 50), right=i)
+    ax.set_title("Plotting data every sec, and average every 10 secs.")
+    # ax.set_xlabel("Time(sec)")
+    # ax.set_ylabel("Data")
     fig.canvas.draw()
     i += 1

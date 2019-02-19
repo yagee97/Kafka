@@ -2,61 +2,43 @@ from kafka import KafkaConsumer
 from json import loads
 import matplotlib.pyplot as plt
 
-# kafka consumer connect
+# Make a Kafaka consumer
 consumer = KafkaConsumer(
-    'test5',
+    'pro_1',
     bootstrap_servers=['localhost:9092'],
     auto_offset_reset='earliest',
     enable_auto_commit=True,
-    group_id='my_group',
+    group_id='m_g',
     value_deserializer=lambda x: loads(x.decode('utf-8')))
 
+# Make a plot graph
 plt.rcParams['animation.html'] = 'jshtml'
+plt.rcParams['axes.grid'] = True
 fig = plt.figure()
 ax = fig.add_subplot(111)
 fig.show()
 i = 0
 
-x, y, z = [], [], []
+# x is a second, y is a data from producer
+x, y = [], []
 
-# receive data from kafka producer and draw real time graph
+# Get message from the producer via kafka
 for message in consumer:
     message = message.value
     if len(x) > 9:
         del (x[0])
         del (y[0])
+    # z is for min, max and current value in last ten second
+    z = []
     x.append(i)
     y.append(message['number'])
-
+    z.append(min(y))
+    z.append(max(y))
+    z.append(message['number'])
     ax.clear()
-    ax.plot(x, y, color='g')
-
-    # calculate max value
-    ymax = max(y)
-    xpos = y.index(ymax)
-    if i > 9:
-        xpos = i - 9 + y.index(ymax)
-
-    # annotate max value every 10 seconds
-    ax.annotate('MAX', (xpos, ymax), arrowprops=dict(facecolor='red', shrink=0.05))
-
-    # calculate min value
-    ymin = min(y)
-    xpos2 = y.index(ymin)
-    if i > 9:
-        xpos2 = i - 9 + y.index(ymin)
-
-    # annotate min value every 10 seconds
-    ax.annotate('MIN', (xpos2, ymin), arrowprops=dict(facecolor='red', shrink=0.05))
-
-    # find current value
-    xpos3 = y.index(message['number'])
-    if i > 9:
-        xpos3 = i - 9 + y.index(message['number'])
-
-    # annotate current value
-    ax.annotate('CURRENT', (xpos3, message['number']), arrowprops=dict(facecolor='red', shrink=0.05))
-
+    ax.plot(x, y, color='r')
+    for n, txt in enumerate(z):
+        ax.annotate(txt, (i - 9 + y.index(z[n]), z[n]))
     ax.set_xlim(left=max(0, i - 10), right=i + 1)
     fig.canvas.draw()
     i += 1
