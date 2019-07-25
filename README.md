@@ -1,3 +1,11 @@
 # Kafka Program
-Learning the apache kafka in LaTrobe Univ.
 2018.12.30~ 2019.02.27 In LaTrobe Univ. Australia
+<br>
+Learning the apache kafka in LaTrobe Univ.
+<br> 
+## * Environment 
+> 1. Window 10
+> 2. Java 8
+> 3. Kafka
+> 4. Spark
+> 5. Hadoop
