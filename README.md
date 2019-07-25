@@ -1,6 +1,7 @@
 # Kafka Program
-### 2018.12.30~ 2019.02.27 In LaTrobe Univ. Australia
-### Learning the apache kafka
+> 2018.12.30~ 2019.02.27 In LaTrobe Univ. Australia<br>
+
+> Learning the apache kafka
 
 <br>
 
