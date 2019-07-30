@@ -90,6 +90,7 @@ Embedded document란, **document 안에 배열 형태**로 있는 document를 �
 ```
 
 
+<br>
 
 Embedded document 배열이 아니라 아래 Document의 "name" 처럼 한개의 Embedded document일 경우에는,
 
