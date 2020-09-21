@@ -1,9 +1,8 @@
 # Kafka Program
 > 2018.12.30~ 2019.02.27 In LaTrobe Univ. Australia<br>
 
-> Learning the apache kafka & 
+> Learning the apache kafka & Apache spark
 
-<br>
 <br>
 
 ## * Environment 
